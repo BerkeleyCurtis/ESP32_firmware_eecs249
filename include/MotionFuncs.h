@@ -14,7 +14,7 @@
 #include "ForceFuncs.h"
 #include "reciever.h"
 
-float forceAverage[numOfFingers];
+
 int driveSpeed[numOfFingers];
 // int driveSpeed[numOfFingers] = {1,1,1,1,1}; //upgrade to differnt drive speeds after finger calibration
 
@@ -116,19 +116,31 @@ float smooth_force(int force){
   return output;
 }
 
+// void V2FollowandForce(){
+//   static float Kr = 1;
+//   float smoothed_force = smooth_force(robotForce);
+//   readForce();
+//   for(int i = 0; i < (numOfFingers); i++){
+//     if(i > 2){ 
+//       driveSpeed[i] =  (-Kp * (force[i] - restForce[i]) + Kr * smoothed_force);
+//     }
+//     else{
+//       driveSpeed[i] =  (-Kp * (force[i] - restForce[i]));
+//     }
+//   }
+//   driveMotors();
+// }
 void V2FollowandForce(){
-  static float Kr = 8;
-  float smoothed_force = smooth_force(robotForce);
+  static float Kr = 20;
+  // float smoothed_force = smooth_force(robotForce);
   readForce();
+  // Serial.print("drive speed    ");
   for(int i = 0; i < (numOfFingers); i++){
-    if(i > 2){
-      driveSpeed[i] =  (-Kp * (force[i] - restForce[i]) + Kr * smoothed_force);
-    }
-    else{
-      driveSpeed[i] =  (-Kp * (force[i] - restForce[i]));
-    }
+    driveSpeed[i] =  (-Kp * (force[i] - restForce[i]) + Kr * virtualForce[i]);
+    // Serial.print(driveSpeed[i]);
   }
-  driveMotors();
+  // Serial.println("");
+  driveMotors(); //NEED TO BRING THIS BACK ADAM
 }
 
 void followFingersV2(){ // proportional force control only. Could add full PID

@@ -9,6 +9,7 @@
 #include <string.h>
 
 int robotForce = 0;
+uint8_t virtualForce[numOfFingers] = {0};
 
 // Only receives one force value. This should be updated to have unique values for each finger. 
 void force_message_reciever(){
@@ -67,4 +68,32 @@ int force_message_reciever_full_fingers(){
         robotForce = robotForceTemp;
     //Serial.println(robotForce);
     return(robotForce);
+}
+
+void receiveforce(){
+
+    if(Serial.available()>0){
+    uint8_t magicStartByte = 126;
+    uint8_t character[numOfFingers] = {0};
+        while (Serial.available()>0){
+            if(Serial.read() == magicStartByte){
+                // Serial.println("yes");
+                for(int i = 0; i < numOfFingers; i++){
+                    if(Serial.available()>0){
+                        character[i] = Serial.read();
+                    }
+                    else{
+                        break;
+                    }
+                    if (i == numOfFingers - 1){
+                        for(int j = 0; j < numOfFingers; j++){
+                            virtualForce[j] = character[j];
+                            // Serial.print(virtualForce[j]);
+                        }
+                        // Serial.println("");
+                    }
+                }
+            }
+        }
+    }
 }

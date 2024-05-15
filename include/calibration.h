@@ -35,9 +35,9 @@ int pinch[numOfFingers] = {0,1114,1506,434,1262}; // where the finger is now
 int fingerPos[numOfFingers];
 
 #if ADAM // Original glove
-int fingerPosMin[numOfFingers] = {400,650,2200,1300,1600}; // hand all the way closed
+int fingerPosMin[numOfFingers] = {400,650,2200,1300,1600}; // hand all the way closed pinky, going to thumb
 int fingerPosMax[numOfFingers] = {1200,1500,1000,275,550}; // hand all the way open 
-long int restForce[numOfFingers] = {1860,1720,1400,1840,2100}; // preload force on the force sensor
+long int restForce[numOfFingers] = {1860,1720,1600,2000,2100}; // preload force on the force sensor
 #endif
 
 #if JAMES // Original glove

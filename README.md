@@ -7,26 +7,17 @@
 * `test/` contains PlatformIO project tests (not used for this project)
 * `platformio.ini` is a setting file for PlatformIO building
 
-# Cables labeling
 
-## Pin ordering for pincher's PCB
+# Getting started with the codebase
 
-For any `servo_i`:
-* *Brown* goes to left (stands for ground)
-* *Orange* goes to center (stands for signal)
-* *Red* goes right (stands for voltage input)
-
-If you want to use the force sensor: plug into `FF1`
-
-## Pin ordering for UART communication between to ESP32
-
-By default the *Green* wire of the ethernet cable goes to `GND` on the two ESP32 (chose the one between ports `19` and `22` for convinience). For communication on a first ESP32, assign *White* and *Orange* wires to `16` and `17`. For reception on a second ESP32, flip those two last wires.
-* Brown goes to left (stands for ground)
-* Orange goes to center (stands for signal)
-* Red goes right (stands for voltage input)
-
-If you want to use the force sensor: plug into `FF1`
-
-# To have both ESP32 communicating
-The sender is pluged on power outlet and flashed by pushing the ENG button (this program is flashed, it will remain permanent after upload)
-The reciever is pluged to the computer on microUSB. Monitoring will be assigned on this platform. 
+* Start working with the codebase once the glove is wired up, but before you attach the finger exoskeleton parts. 
+* The motors need to spin during testing and the force sensors need to be calibrated with the finger exoskeleton pieces off. 
+* Read all the comments in `src/main.cpp`
+* Use `#define CALIBRATION 1` on line 20ish to set the compiler variable to access calibration functions to get the glove all set up.
+* Calibration is multi-step. Complete each step successfully before moving on.
+* Once calibration is complete, set the `#define CALIBRATION` to `0` to access the `interactOverUART()` function in the main loop. 
+* This function will send finger states over usb. See the `sender.h` for details.
+* Clone this repo and get it running in Unity: `https://github.com/BerkeleyCurtis/handsim/tree/main`
+* If that Unity project doesn't load properly, look in the scenes folder. A lot of times when you open a Unity project it will just load a blank scene.
+* The glove should talk to this Unity project if everything is set up correctly and you should see fingers move in simulation as you move your fingers in real life. Forces should be applied to your fingers when the simulated hand hits the simulated object.
+* Reach out to me on my website with any questions: `https://atombcurtis.wixsite.com/website`

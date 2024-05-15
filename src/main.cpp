@@ -17,16 +17,18 @@
 // Start by calibrating the glove with the finger skeleton pieces removed. 
 // Change CALIBRATION to 1 below and follow directions in the manualCalibration() function
 
-#define CALIBRATION 1 // Set to 1 to enter manual calibration sequence. 0 for normal operation
+#define CALIBRATION 0 // Set to 1 to enter manual calibration sequence. 0 for normal operation
 
 void interactOverUART(void){
   /* --------- Interacts over UART sending and receiving 8 bit numbers -------- */
 
-  force_message_reciever(); // Gets in new force values from VR or robot
+  receiveforce(); // Gets in new force values from VR or robot
   V2FollowandForce(); // Applies appropriate force to fingers
   readFingerPositions(); // Checks where the fingers are
   // Sends finger location to VR or robot 
-  send_control();
+  // send_control();
+  sendbytes();
+  // delay(500);
 }
 
 void controller() { // state machine takes keyboard inputs 
@@ -105,7 +107,8 @@ void controller() { // state machine takes keyboard inputs
 }
 
 void manualCalibration(){
-  int step = 0;
+  int step = 0; // Set steps here. I know it's jenky. 
+  // Why don't you add some user input so you don't have to recompile each time.
   bool motors_delay = true;
   /* --------------------------- manual calibration --------------------------- */
   // ===STEP ONE=== 
