@@ -17,6 +17,9 @@
 * Calibration is multi-step. Complete each step successfully before moving on.
 * Once calibration is complete, set the `#define CALIBRATION` to `0` to access the `interactOverUART()` function in the main loop. 
 * This function will send finger states over usb. See the `sender.h` for details.
+
+## To use the glove with a simple Unity simulation
+
 * Clone this repo and get it running in Unity: `https://github.com/BerkeleyCurtis/handsim/tree/main`
 * If that Unity project doesn't load properly, look in the scenes folder. A lot of times when you open a Unity project it will just load a blank scene.
 * The glove should talk to this Unity project if everything is set up correctly and you should see fingers move in simulation as you move your fingers in real life. Forces should be applied to your fingers when the simulated hand hits the simulated object.
